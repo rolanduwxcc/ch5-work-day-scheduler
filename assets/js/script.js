@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------VARIABLES
-var startTime = 0;  //adjust the start time here
+var startTime = 9;  //adjust the start time here
 var hoursPerDay = 9; //adjust hours per day here
 var schedule = [];
 var theScheduleEl = document.getElementById("the-schedule");
@@ -39,13 +39,12 @@ var updateSlot = function(index,text) {
     }
   
     for (let i = 0; i < hoursPerDay; i++) {
-      const element = i
       var newDivEl = document.createElement("div");
       newDivEl.setAttribute("class","row gy=5 hour-slot");
 
       var newSpanEl = document.createElement("span");
       newSpanEl.setAttribute("class","col-md-2 hour");
-      newSpanEl.textContent = i+startTime+"00";
+      newSpanEl.textContent = moment(i+startTime+"00","Hmm").format("hh a");
       newDivEl.appendChild(newSpanEl);
 
       var newApptEl = document.createElement("p");
@@ -72,22 +71,22 @@ var updateSlot = function(index,text) {
   };
 
   var auditTask = function(slotEl) {
-    //get date from time slot element
-    var slotTime = $(slotEl).find("span").text().trim();
-    slotTime = moment(slotTime,"H");
-    console.log(slotTime);
-  
-    //get the current time 
-    var currentTime = moment().format("H");
-
+    //get slot time from element convert to 24hr time
+    var slotHour = $(slotEl).find("span").text().trim();
+    slotHour = moment(slotHour,"hh a").format("H");
+      
+    //create a today date time object based on slot time
+    var slotDateTime = moment().set("hour",slotHour);
+    
     //remove any old classes from element
     $(slotEl).removeClass("past present future");
   
-    //apply new class if task is near/over due date
-    if (moment().isAfter(slotTime)) {
+    
+    //apply new class if task if current time is after/before/equal to slot's time
+    if (moment().isAfter(slotDateTime)) {
       $(slotEl).addClass("past");
     }
-    else if (moment().isBefore(slotTime)) {
+    else if (moment().isBefore(slotDateTime)) {
       $(slotEl).addClass("future");
     }
     else {
