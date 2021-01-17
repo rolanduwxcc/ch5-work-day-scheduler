@@ -12,9 +12,9 @@ var loadToday = function() {
     currentDayEl.textContent = currentDateTime;
 };
 
-var updateSlot = function(time,text) {
+var updateSlot = function(index,text) {
   //convert the time into an index value
-  var index = (parseInt(time)/100) - 9; 
+  // var index = (parseInt(time)/100) - 9; 
 
   //store updated task info to schedule array
   schedule[index] = text;
@@ -97,18 +97,16 @@ $("div").on("click", "button",function() {
 
     var index = $("textarea").attr("id");
 
-    console.log(text,index,textInput);
+    console.log(text,index);
     console.log("Yes1");
 
     var paragraphEl = $("<p>")
     .addClass("col-md-8")
-    .attr("id",index)
-    .val(text);
+    .attr("id",index);
+   
+    $("textarea").replaceWith(paragraphEl);
 
-  console.log(paragraphEl);
-
-  $("textarea").replaceWith(paragraphEl);
-
+    updateSlot(index,text);
 });
 
 
