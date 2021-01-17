@@ -2,37 +2,32 @@
 var startTime = 9;  //adjust the start time here
 var hoursPerDay = 9; //adjust hours per day here
 var schedule = [];
-var currentDateTime = moment().format('dddd, MMM Do YYYY');
-var currentDayEl = document.querySelector("#currentDay");
 var theScheduleEl = document.getElementById("the-schedule");
 
 
 //-----------------------------------------------------------------------FUNCTIONS
 var loadToday = function() {
+    var currentDateTime = moment().format('dddd, MMM Do YYYY');
+    var currentDayEl = document.querySelector("#currentDay");
     currentDayEl.textContent = currentDateTime;
 };
 
-var createSlot = function(slotText, timeSlot) {
+var updateSlot = function(time,text) {
+  //convert the time into an index value
+  var index = (parseInt(time)/100) - 9; 
 
+  //store updated task info to schedule array
+  schedule[index] = text;
 
-    // create elements that make up a task item
-    var slotEl = $("<li>").addClass("list-group-item");
-    var taskSpan = $("<span>")
-      .addClass("badge badge-primary badge-pill")
-      .text(taskDate);
-    var taskP = $("<p>")
-      .addClass("m-1")
-      .text(taskText);
-  
-    // append span and p element to parent li
-    taskLi.append(taskSpan, taskP);
-  
-    //check due date
-    auditTask(taskLi);
-  
-    // append to ul list on the page
-    $("#list-" + taskList).append(taskLi);
-  };
+  //update the text of the element
+  var timeDescriptionEl = document.getElementById(index);
+  timeDescriptionEl.textContent = text;
+
+  //check due date
+  // auditTask(taskLi);
+
+  saveSlots();
+};
   
   var loadSlots = function() {
     schedule = JSON.parse(localStorage.getItem("schedule"));
@@ -40,7 +35,6 @@ var createSlot = function(slotText, timeSlot) {
     // if nothing in localStorage, create a new object to track all task status arrays
     if (!schedule) {
       schedule = [];
-
     }
   
     for (let i = 0; i < hoursPerDay; i++) {
@@ -55,6 +49,7 @@ var createSlot = function(slotText, timeSlot) {
 
       var newApptEl = document.createElement("p");
       newApptEl.setAttribute("class","col-md-8");
+      newApptEl.setAttribute("id",i);
       newApptEl.textContent = schedule[i];
       newDivEl.appendChild(newApptEl);
 
@@ -70,8 +65,8 @@ var createSlot = function(slotText, timeSlot) {
     } 
   };
   
-  var saveTasks = function() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+  var saveSlots = function() {
+      localStorage.setItem("schedule", JSON.stringify(schedule));
   };
 
 
