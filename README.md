@@ -1,5 +1,5 @@
 # Work Day Scheduler
-***********UPDATE THE LINKS************
+
 ## Purpose
 Provide a simple day scheduler app
 
