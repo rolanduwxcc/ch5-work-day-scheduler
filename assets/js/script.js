@@ -102,9 +102,10 @@ $("div").on("click", "p", function() {
     .trim();
   
   var index = $(this).attr("id");
-  
+
+  //add a flag to it to turn off saves later......
   var textInput = $("<textarea>")
-    .addClass("form-contorl")
+    .addClass("col-md-8 active")
     .attr("id",index)
     .val(text)
 
