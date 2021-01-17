@@ -97,6 +97,11 @@ var auditTask = function (slotEl) {
 //-----------------------------------------------------------------------EVENTS
 //---------------------------------Click Slot Event
 $("div").on("click", "p", function () {
+  var isActive = $(theScheduleEl).find("textarea").hasClass("active");
+  if (isActive) {
+    return;
+  }
+  
   var text = $(this)
     .text()
     .trim();
