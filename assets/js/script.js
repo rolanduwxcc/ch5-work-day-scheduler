@@ -40,7 +40,7 @@ var updateSlot = function(time,text) {
     for (let i = 0; i < hoursPerDay; i++) {
       const element = i
       var newDivEl = document.createElement("div");
-      newDivEl.setAttribute("class","row gy=5");
+      newDivEl.setAttribute("class","row gy=5 hour-slot");
 
       var newSpanEl = document.createElement("span");
       newSpanEl.setAttribute("class","col-md-2");
@@ -59,8 +59,6 @@ var updateSlot = function(time,text) {
       newBtnEl.textContent ="Save";
       newDivEl.appendChild(newBtnEl);
 
-      console.log(newDivEl);
-      console.dir(newDivEl);
       theScheduleEl.appendChild(newDivEl);
     } 
   };
@@ -70,29 +68,41 @@ var updateSlot = function(time,text) {
   };
 
 
-  //-----------------------------------------------------task text/p was clicked turned to textarea
-$(".list-group").on("click", "p", function() {
+  //---------------------------------------task text/p was clicked turned to textarea
+$("div").on("click", "p", function() {
   var text = $(this)
     .text()
     .trim();
   
+  var index = $(this).attr("id");
+  
   var textInput = $("<textarea>")
     .addClass("form-contorl")
+    .attr("id",index)
     .val(text)
 
-    $(this).replaceWith(textInput);
+  $(this).replaceWith(textInput);
+
+  console.log(text,index,textInput);
+  console.log("Yes");
 
   textInput.trigger("focus");
 });
 
-$(".list-group").on("click", ".saveBtn",function() {
-    //get teh text area's current value/text
+$("div").on("click", "button",function() {
+    //get the text area's current value/text
     var text = $("textarea")
     .val()
     .trim();
 
+    var index = $("textarea").attr("id");
+
+    console.log(text,index,textInput);
+    console.log("Yes1");
+
     var paragraphEl = $("<p>")
-    .addClass("col-md-10 description")
+    .addClass("col-md-8")
+    .attr("id",index)
     .val(text);
 
   console.log(paragraphEl);
