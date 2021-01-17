@@ -1,18 +1,19 @@
 # Work Day Scheduler
-***********UPDATE THE LINKS************
+
 ## Purpose
-Provide a timed quiz on JavaScript fundamentals that stores scores of user for comparison.
+Provide a simple day scheduler app
 
 ## Built With
 * HTML
 * CSS
 * JavaScript
 * jQuery
-* Bootstrap?????????
+* Bootstrap
+* Momentum
 
 ## Links
-* Deployed Website - https://rolanduwxcc.github.io/ch4-code-quiz/
-* GitHub Repo - https://github.com/rolanduwxcc/ch4-code-quiz
+* Deployed Website - https://rolanduwxcc.github.io/ch5-work-day-scheduler/
+* GitHub Repo - https://github.com/rolanduwxcc/ch5-work-day-scheduler
 
 ## Contributions
 * Warren Rowland
@@ -21,6 +22,6 @@ Provide a timed quiz on JavaScript fundamentals that stores scores of user for c
 * Warren Rowland - Find me on [Linked In](https://www.linkedin.com/in/linkedinrowland/) or [GitHub](https://github.com/rolanduwxcc)
 
 ## Screenshots
-![Work Day Scheduler Page](assets/images/CodingQuiz.png)
+![Work Day Scheduler Page](assets/images/WorkDay.png)
 
 ### ©️2020 Rolanduwxcc, Inc 
