@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------VARIABLES
-var startTime = 9;  //adjust the start time here
+var startTime = 0;  //adjust the start time here
 var hoursPerDay = 9; //adjust hours per day here
 var schedule = [];
 var theScheduleEl = document.getElementById("the-schedule");
@@ -27,6 +27,7 @@ var updateSlot = function(index,text) {
   // auditTask(taskLi);
 
   saveSlots();
+
 };
   
   var loadSlots = function() {
@@ -43,21 +44,23 @@ var updateSlot = function(index,text) {
       newDivEl.setAttribute("class","row gy=5 hour-slot");
 
       var newSpanEl = document.createElement("span");
-      newSpanEl.setAttribute("class","col-md-2");
+      newSpanEl.setAttribute("class","col-md-2 hour");
       newSpanEl.textContent = i+startTime+"00";
       newDivEl.appendChild(newSpanEl);
 
       var newApptEl = document.createElement("p");
-      newApptEl.setAttribute("class","col-md-8");
+      newApptEl.setAttribute("class","col-md-8 description");
       newApptEl.setAttribute("id",i);
       newApptEl.textContent = schedule[i];
       newDivEl.appendChild(newApptEl);
 
       var newBtnEl = document.createElement("button");
       newBtnEl.setAttribute("type","button");
-      newBtnEl.setAttribute("class","col-md-2");
+      newBtnEl.setAttribute("class","col-md-2 btn saveBtn");
       newBtnEl.textContent ="Save";
       newDivEl.appendChild(newBtnEl);
+
+      auditTask(newDivEl);
 
       theScheduleEl.appendChild(newDivEl);
     } 
@@ -65,10 +68,35 @@ var updateSlot = function(index,text) {
   
   var saveSlots = function() {
       localStorage.setItem("schedule", JSON.stringify(schedule));
+      location.reload();
   };
 
+  var auditTask = function(slotEl) {
+    //get date from time slot element
+    var slotTime = $(slotEl).find("span").text().trim();
+    slotTime = moment(slotTime,"H");
+    console.log(slotTime);
+  
+    //get the current time 
+    var currentTime = moment().format("H");
 
-  //---------------------------------------task text/p was clicked turned to textarea
+    //remove any old classes from element
+    $(slotEl).removeClass("past present future");
+  
+    //apply new class if task is near/over due date
+    if (moment().isAfter(slotTime)) {
+      $(slotEl).addClass("past");
+    }
+    else if (moment().isBefore(slotTime)) {
+      $(slotEl).addClass("future");
+    }
+    else {
+      $(slotEl).addClass("present");
+    }
+  };
+
+//-----------------------------------------------------------------------EVENTS
+//---------------------------------Click Slot Event
 $("div").on("click", "p", function() {
   var text = $(this)
     .text()
@@ -88,7 +116,7 @@ $("div").on("click", "p", function() {
 
   textInput.trigger("focus");
 });
-
+//---------------------------------Click Save Button Event
 $("div").on("click", "button",function() {
     //get the text area's current value/text
     var text = $("textarea")
@@ -108,7 +136,6 @@ $("div").on("click", "button",function() {
 
     updateSlot(index,text);
 });
-
 
 //-----------------------------------------------------------------------CALLS
 loadToday();
