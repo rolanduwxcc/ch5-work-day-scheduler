@@ -2,7 +2,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1;
-  background-color: #76a5af;
+  /* background-color: #76a5af; */
 }
 
 textarea{
@@ -24,6 +24,7 @@ textarea{
 
 .description{
   white-space: pre-wrap;
+  text-align: left;
 }
 
 .time-block{
@@ -34,7 +35,8 @@ textarea{
 .row {
   white-space: pre-wrap;
   height: 80px;
-  border-top: 1px solid white;;
+  border-top: 1px solid white;
+  text-align: justify;
 }
 
 .hour {
